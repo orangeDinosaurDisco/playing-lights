@@ -101,7 +101,7 @@ function mouseClicked() {
     for (let i = 0; i < horzLine.length; i++) {
         // console.log(newGrid[i].posPoints.open);
         if (mouseX > horzLine[i].origin.x && mouseX < horzLine[i].end.x && mouseY > horzLine[i].origin.y - 10 && mouseY < horzLine[i].origin.y + 10) {
-            console.log("horz line clicked", i, horzLine[i].origin.x, horzLine[i].end.x);
+            // console.log("horz line clicked", i, horzLine[i].origin.x, horzLine[i].end.x);
             currentPoint = i;
             if (currentPoint === 0) {
                 horzLine[currentPoint].pointOrigin.posPoints.open = true;
@@ -109,26 +109,56 @@ function mouseClicked() {
                 horzLine[currentPoint].lineClicked();
                 previousPoint = currentPoint;
             } else if (currentPoint !== 0) {
-                if (horzLine[currentPoint].origin.x - horzLine[previousPoint].end.x === 0) {
+                if (horzLine[currentPoint].origin.x - horzLine[previousPoint].end.x === 0 && horzLine[currentPoint].origin.y - horzLine[previousPoint].end.y === 0) {
+                    console.log("horizontal to horizontal going east");
                     horzLine[currentPoint].pointOrigin.posPoints.open = true;
-
-                    console.log(horzLine[currentPoint].origin.x, horzLine[previousPoint].end.x, ":", horzLine[previousPoint].pointOrigin.posPoints.open, previousPoint);
+                    horzLine[currentPoint].lineClicked();
+                    previousPoint = currentPoint;
+                } else if (horzLine[currentPoint].origin.x - vertLine[previousPoint].end.x === 0 && horzLine[currentPoint].origin.y - vertLine[previousPoint].end.y === 0) {
+                    console.log("vertical to horizontal going east");
+                    horzLine[currentPoint].pointOrigin.posPoints.open = true;
+                    horzLine[currentPoint].lineClicked();
+                    previousPoint = currentPoint;
+                } else if (horzLine[currentPoint].end.x - horzLine[previousPoint].origin.x === 0 && horzLine[currentPoint].end.y - horzLine[previousPoint].origin.y === 0) {
+                    console.log("horizontal to horizontal going west");
+                    horzLine[currentPoint].pointOrigin.posPoints.open = true;
+                    horzLine[currentPoint].lineClicked();
+                    previousPoint = currentPoint;
+                } else if (horzLine[currentPoint].end.x - vertLine[previousPoint].end.x === 0 && horzLine[currentPoint].end.y - vertLine[previousPoint].end.y === 0) {
+                    console.log("vertical to horizontal going west");
+                    horzLine[currentPoint].pointOrigin.posPoints.open = true;
+                    horzLine[currentPoint].lineClicked();
+                    previousPoint = currentPoint;
+                } else if (horzLine[currentPoint].origin.x - vertLine[previousPoint].origin.x === 0 && horzLine[currentPoint].origin.y - vertLine[previousPoint].origin.y === 0) {
+                    console.log("vertical from south to horizontal going east");
+                    horzLine[currentPoint].pointOrigin.posPoints.open = true;
+                    horzLine[currentPoint].lineClicked();
+                    previousPoint = currentPoint;
+                } else if (horzLine[currentPoint].end.x - vertLine[previousPoint].origin.x === 0 && horzLine[currentPoint].end.y - vertLine[previousPoint].origin.y === 0) {
+                    console.log("vertical from south to horizontal going west");
+                    horzLine[currentPoint].pointOrigin.posPoints.open = true;
                     horzLine[currentPoint].lineClicked();
                     previousPoint = currentPoint;
                 }
-            }
-            //     horzLine[currentPoint].origin.x - horzLine[previousPoint].end.x === 0 && horzLine[previousPoint].pointOrigin.posPoints.open === true) { // check if the end point of the previous line is equal to the beginning point of current line
-            //     horzLine[currentPoint].lineClicked();
-            //     previousPoint = currentPoint;
-            // }
+                // horzLine[currentPoint].pointOrigin.posPoints.open = true;
 
+                // console.log(horzLine[currentPoint].origin.x, horzLine[previousPoint].end.x, ":", horzLine[previousPoint].pointOrigin.posPoints.open, previousPoint);
+                // horzLine[currentPoint].lineClicked();
+                // previousPoint = currentPoint;
+            }
         }
+        //     horzLine[currentPoint].origin.x - horzLine[previousPoint].end.x === 0 && horzLine[previousPoint].pointOrigin.posPoints.open === true) { // check if the end point of the previous line is equal to the beginning point of current line
+        //     horzLine[currentPoint].lineClicked();
+        //     previousPoint = currentPoint;
+        // }
+
     }
+
 
     for (let j = 0; j < vertLine.length; j++) {
 
         if (mouseY > vertLine[j].origin.y && mouseY < vertLine[j].end.y && mouseX > vertLine[j].end.x - 10 && mouseX < vertLine[j].end.x + 10) {
-            console.log("vert line clicked", j, vertLine[j].origin.y, vertLine[j].end.y);
+            // console.log("vert line clicked", j, vertLine[j].origin.y, vertLine[j].end.y);
             currentPoint = j;
             if (currentPoint === 0) {
                 vertLine[currentPoint].pointOrigin.posPoints.open = true;
@@ -136,13 +166,47 @@ function mouseClicked() {
                 vertLine[currentPoint].lineClicked();
                 previousPoint = currentPoint;
             } else if (currentPoint !== 0) {
-                if (vertLine[currentPoint].origin.x - vertLine[previousPoint].end.x === 0) {
+                console.log(currentPoint);
+                // console.log(vertLine[currentPoint].origin.x, "hhorisi", horzLine[previousPoint].end.x);
+                if (vertLine[currentPoint].origin.y - vertLine[previousPoint].end.y === 0 && vertLine[currentPoint].origin.x - vertLine[previousPoint].end.x === 0) {
+                    console.log("vertical to vertical  going south");
                     vertLine[currentPoint].pointOrigin.posPoints.open = true;
+                    vertLine[currentPoint].lineClicked();
+                    previousPoint = currentPoint;
+                } else if (vertLine[currentPoint].origin.y - horzLine[previousPoint].end.y === 0 && vertLine[currentPoint].origin.x - horzLine[previousPoint].end.x === 0) {
+                    console.log("horizontal to vertical going south");
+                    vertLine[currentPoint].pointOrigin.posPoints.open = true;
+                    vertLine[currentPoint].lineClicked();
+                    previousPoint = currentPoint;
+                } else if (vertLine[currentPoint].end.y - vertLine[previousPoint].origin.y === 0 && vertLine[currentPoint].end.x - vertLine[previousPoint].origin.x === 0) {
+                    console.log("vertical to vertical  going north");
+                    vertLine[currentPoint].pointOrigin.posPoints.open = true;
+                    vertLine[currentPoint].lineClicked();
+                    previousPoint = currentPoint;
+                } else if (vertLine[currentPoint].end.y - horzLine[previousPoint].end.y === 0 && vertLine[currentPoint].end.x - horzLine[previousPoint].end.x === 0) {
+                    console.log("horizontal to vertical going north");
+                    vertLine[currentPoint].pointOrigin.posPoints.open = true;
+                    vertLine[currentPoint].lineClicked();
+                    previousPoint = currentPoint;
 
-                    console.log(vertLine[currentPoint].origin.x, vertLine[previousPoint].end.x, ":", vertLine[previousPoint].pointOrigin.posPoints.open, previousPoint);
+                } else if (vertLine[currentPoint].origin.y - horzLine[previousPoint].origin.y === 0 && vertLine[currentPoint].origin.x - horzLine[previousPoint].origin.x === 0) {
+                    console.log("horizontal going east to vertical going south");
+                    vertLine[currentPoint].pointOrigin.posPoints.open = true;
+                    vertLine[currentPoint].lineClicked();
+                    previousPoint = currentPoint;
+                } else if (vertLine[currentPoint].end.y - horzLine[previousPoint].origin.y === 0 && vertLine[currentPoint].end.x - horzLine[previousPoint].origin.x === 0) {
+                    console.log("horizontal going east to vertical going north");
+                    vertLine[currentPoint].pointOrigin.posPoints.open = true;
                     vertLine[currentPoint].lineClicked();
                     previousPoint = currentPoint;
                 }
+
+                // vertLine[currentPoint].pointOrigin.posPoints.open = true;
+
+                // console.log(vertLine[currentPoint].origin.x, vertLine[previousPoint].end.x, ":", vertLine[previousPoint].pointOrigin.posPoints.open, previousPoint);
+                // vertLine[currentPoint].lineClicked();
+                // previousPoint = currentPoint;
+                // }
             }
         }
     }
@@ -234,6 +298,7 @@ class LightLine {
         if (this.pointOrigin.posPoints.open === true) {
             this.lightBool = !this.lightBool;
         }
+        console.log(this.pointOrigin.posPoints);
         // console.log(this.lightBool);
 
     }
