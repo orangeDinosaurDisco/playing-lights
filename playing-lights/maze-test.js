@@ -21,7 +21,6 @@ let currentPoint;
 let previousPoint;
 
 
-
 function windowResized() {
 
     resizeCanvas(windowWidth, windowHeight);
